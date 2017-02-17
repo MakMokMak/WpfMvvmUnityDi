@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfMvvmUnityDi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:mb="clr-namespace:MakCraft.Behaviors;assembly=MakViewModelsBase"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMvvmUnityDi"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <i:Interaction.Triggers>
+        <ei:PropertyChangedTrigger Binding="{Binding ModalKick}">
+            <mb:DialogTransferDataAction
+                Parameter="{Binding CommunicationDialog}" DialogType="{Binding DialogType}" DialogMode="Modal"
+                ActionCallBack="{Binding DialogActionCallback}" ResultViewModel="{Binding ResultViewModel}" />
+        </ei:PropertyChangedTrigger>
+    </i:Interaction.Triggers>
+
+    <StackPanel>
+        <TextBlock
+            Margin="10" HorizontalAlignment="Center" FontSize="20" Text="MVVM での DI コンテナのテスト" />
+
+        <GroupBox Header="本の一覧">
+            <DataGrid
+            ItemsSource="{Binding Books}" />
+        </GroupBox>
+
+        <Button
+            Margin="10" Padding="20 5" HorizontalAlignment="Right"
+            Content="入力画面表示"
+            Command="{Binding ShowInputWindowCommand}" />
+
+        <Button
+            Margin="10" Padding="35 5" HorizontalAlignment="Right"
+            Content="GC 実行"
+            Command="{Binding GcCommand}" />
+    </StackPanel>
+</Window>

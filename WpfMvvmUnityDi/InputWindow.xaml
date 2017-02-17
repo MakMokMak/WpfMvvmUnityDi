@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfMvvmUnityDi.InputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:WpfMvvmUnityDi"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner" Name="Window"
+        Title="InputWindow" Height="180" Width="360">
+    <i:Interaction.Triggers>
+        <!-- DialogResult セット用のトリガ -->
+        <ei:PropertyChangedTrigger Binding="{Binding Result}">
+            <ei:ChangePropertyAction
+                TargetObject="{Binding ElementName=Window}" PropertyName="DialogResult" Value="{Binding Result}" />
+        </ei:PropertyChangedTrigger>
+    </i:Interaction.Triggers>
+
+    <StackPanel FocusManager.FocusedElement="{Binding ElementName=TitleBox}">
+        <TextBlock
+            Margin="10" HorizontalAlignment="Center" FontSize="20"
+            Text="本の情報を入力" />
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock MinWidth="40" Text="タイトル:" />
+            <TextBox Name="TitleBox" MinWidth="300" Text="{Binding Title}" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock MinWidth="40" Text="作者:" />
+            <TextBox MinWidth="300" Text="{Binding Author}" />
+        </StackPanel>
+
+        <Button
+                    HorizontalAlignment="Right" Margin="10" Padding="20 5" Content="入力"
+                    Command="{Binding AddBookCommand}" />
+    </StackPanel>
+</Window>
